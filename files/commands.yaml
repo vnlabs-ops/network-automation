@@ -1,0 +1,30 @@
+---
+show_licenses:
+- 'show license summary | in IN USE' # switches
+- 'show license suites' # routers
+
+healthcheck_commands:
+- router:
+  - cmd: 'show processes cpu | in CPU'
+    condition: [ "80" ]
+  - cmd: 'sho processes memory sorted | in Processor| lsmpi_io'
+    condition: [ "1600000000" ]
+  - cmd: 'show ntp status | in Clock is'
+    condition: ["Clock is unsynchronized"]
+  - cmd: 'sho environment all'
+    condition: ["Warning","Critical","Failed"]
+  - cmd: 'show interfaces status'
+    condition: ["notconnect"]
+  - cmd: "show ip ospf neighbor | in EXSTART|2WAY|LOADING|DOWN"
+    condition: ["EXSTART","2WAY","LOADING","DOWN"]
+- switch:
+  - cmd: "show processes cpu | in CPU"
+    condition: ["80"]
+  - cmd: 'sho processes memory sorted | in Processor| lsmpi_io'
+    condition: ["1600000000"]
+  - cmd: 'show ntp status | in Clock is'
+    condition: ["Clock is unsynchronized"]
+  - cmd: 'sho environment all'
+    condition: ["Abnormal","Failed","Not Present","Warning","Critical","Shutdown" ]
+  - cmd: 'show interfaces status'
+    condition: ["notconnect"]

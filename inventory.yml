@@ -1,0 +1,47 @@
+---
+- hosts: switches_catalyst, routers_ISR
+  
+  vars_files: 
+    - vars/common.yaml 
+
+  tasks:
+
+    - name: Get the facts
+      ios_facts:
+        gather_subset: all
+
+    - name: Device_type [0 => router, 1 => switch]
+      set_fact:
+        device_type: "{%- if ('switches_catalyst' in group_names) -%}
+                         1
+                      {%- elif ('routers_ISR' in group_names) -%}   
+                         0
+                      {%- endif -%}"   
+
+    - name: show licenses
+      register: license
+      cisco.ios.ios_command:
+        commands: "{{ show_licenses[device_type | int] }}"       
+      
+    - name: print license
+      debug:
+        var: license.stdout
+
+    - name: Create CSV file
+      lineinfile:
+        dest: "~/ansible-network/catalyst-switches_report_{{ date }}.csv"
+        line: "\"hostname\",\"image\",\"iostype\",\"model\",\"serialnum\",\"system\",\"version\",\"license\""
+        create: yes
+        state: present
+
+    - name: CSV - Write information into .csv file
+      lineinfile:
+        dest: "~/ansible-network/catalyst-switches_report_{{ date }}.csv"
+        line: "\"{{ ansible_net_hostname }}\",\"{{ ansible_net_image }}\",\"{{ ansible_net_iostype }}\",\"{{ ansible_net_model }}\",\"{{ ansible_net_serialnum }}\",\"{{ ansible_net_system }}\",\"{{ ansible_net_version}}\",\"{{license.stdout_lines[0] | join('\n')}}\""
+
+    - name: CSV - Blank lines removal
+      lineinfile:
+        path: "~/ansible-network/catalyst-switches_report_{{ date }}.csv"
+        state: absent
+        regex: '^\s*$'
+

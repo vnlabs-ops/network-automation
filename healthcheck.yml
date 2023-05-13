@@ -1,0 +1,69 @@
+---
+- name: Health check 
+  hosts: switches_catalyst, routers_ISR
+  gather_facts: no
+
+  vars_files:
+  - files/commands.yaml  
+  - vars/common.yaml
+  
+  tasks:
+ 
+  - name: Get the facts
+    ios_facts:
+      gather_subset: all
+
+########### include tasks ###################
+
+  - name: Check and return check_result 
+    # [0 => router, 1 => switch, 2 => nexus ]
+    vars:
+      hc_commands: "{%- if ('switches_catalyst' in group_names) -%}
+                        {{ healthcheck_commands[1].switch }}          
+                    {%- elif ('routers_ISR' in group_names) -%}
+                        {{ healthcheck_commands[0].router }}
+                    {%- endif -%}"
+    include_tasks: "sub-tasks/router.yml"
+
+  - name: Set csv file path 
+    set_fact:
+      csv_path: "{%- if ('switches_catalyst' in group_names) -%}
+                        ~/ansible-network/switches_checklist_{{ date }}.csv
+                 {%- elif ('routers_ISR' in group_names) -%}
+                        ~/ansible-network/routers_checklist_{{ date }}.csv
+                 {%- endif -%}"
+
+  - name: Build csv file header
+    set_fact:
+      csv_header: "{%- if ('switches_catalyst' in group_names) -%}
+                        \"Device IP\",\"CPU\",\"Memmory\",\"NTP\",\"Environment\",\"Interface status\"
+                 {%- elif ('routers_ISR' in group_names) -%}
+                        \"Device IP\",\"CPU\",\"Memmory\",\"NTP\",\"Environment\",\"Interface status\",\"WAN ospf \"
+                 {%- endif -%}"
+
+  - name: Build csv content line 
+    set_fact:
+      csv_line: "{{ check_result | join('\",\"') }}"
+  
+  - name: Print csv contient line
+    debug:
+      msg: "{{ csv_line }}"
+
+  - name: Create CSV file
+    lineinfile:
+      dest: "{{ csv_path }}"                    
+      line: " {{ csv_header }}"
+      create: yes
+      state: present
+
+  - name: CSV - Blank lines removal
+    lineinfile:
+      path: " {{ csv_path }}"
+      state: absent
+      regex: '^\s*$'
+
+###########Write to CSV#####################
+  - name: CSV - Write information into .csv file
+    lineinfile:
+      dest: "{{ csv_path }}"
+      line: "\"{{ansible_ssh_host}}\",\"{{ csv_line }}\""

@@ -1,0 +1,272 @@
+Router:
+
+LYEN-WAN-RT-I4331-01#show processes cpu | in CPU
+CPU utilization for five seconds: 0%/0%; one minute: 1%; five minutes: 1%
+------
+LYEN-WAN-RT-I4331-01#sho processes memory sorted | in Processor| lsmpi_io
+Processor Pool Total: 1827002000 Used:  272426384 Free: 1554575616
+ lsmpi_io Pool Total:    6295128 Used:    6294296 Free:        832
+ 
+------
+LYEN-WAN-RT-I4331-01#show clock
+08:59:58.120 VIE Wed Apr 5 2023
+
+------
+LYEN-WAN-RT-I4331-01#sho environment all
+Sensor List:  Environmental Monitoring 
+ Sensor           Location          State             Reading
+ RPM: fan0        P2                Normal            5340 RPM
+ RPM: fan1        P2                Normal            5340 RPM
+ RPM: fan2        P2                Normal            5400 RPM
+ RPM: fan3        P2                Normal            5340 RPM
+ P: pwr           P2                Normal            2 Watts
+ Temp: Inlet      R0                Normal            24 Celsius
+ Temp: Internal   R0                Normal            22 Celsius
+ Temp: Outlet     R0                Normal            28 Celsius
+ Temp: CPU        R0                Normal            32 Celsius
+ V: 12v           R0                Normal            12079 mV
+ V: 5v            R0                Normal            5074 mV
+ V: 3.3v          R0                Normal            3301 mV
+ V: 3.0v          R0                Normal            2994 mV
+ V: 2.5v          R0                Normal            2476 mV
+ V: 1.35v CPU     R0                Normal            1347 mV
+ V: 1.8v          R0                Normal            1817 mV
+ V: 1.2v          R0                Normal            1198 mV
+ V: VNN CPU       R0                Normal            964 mV
+ V: 1.1v          R0                Normal            1068 mV
+ V: 1.0v          R0                Normal            997 mV
+ V: 1.8v CPU      R0                Normal            1822 mV
+ V: DDR           R0                Normal            1506 mV
+ V: 3.3v STBY     R0                Normal            3339 mV
+ V: 1.5v          R0                Normal            1506 mV
+ V: 1.0v CPU      R0                Normal            999 mV
+ V: VCC CPU       R0                Normal            864 mV
+ V: 0.75v         R0                Normal            750 mV
+ I: 12v           R0                Normal            3 A
+ P: pwr           R0                Normal            26 Watts
+ 
+ ------
+ LYEN-WAN-RT-I4331-01#show interfaces des | in Tu
+Tu110211                       up             up       To_DC-WAN-RT01_via_ITC-P2P
+Tu110212                       up             up       To_DC-WAN-RT02_via_ITC-P2P
+Tu130511                       up             up       To_DC-WAN-RT01_via_HTC-P2P
+Tu130512                       up             up       To_DC-WAN-RT02_via_HTC-P2P
+
+
+-------
+LYEN-WAN-RT-I4331-01#show ip ospf neighbor | in FULL|EXSTART|2WAY|LOADING
+10.88.11.16       0   FULL/  -        00:00:38    10.200.110.141  Tunnel130512
+10.88.11.15       0   FULL/  -        00:00:39    10.200.110.133  Tunnel130511
+10.88.11.16       0   FULL/  -        00:00:32    10.200.230.41   Tunnel110212
+10.88.11.15       0   FULL/  -        00:00:31    10.200.230.33   Tunnel110211
+
+
+================================================================================
+Switch:
+
+
+LUONGYEN-LINKSW-C9200#show processes cpu | in CPU
+CPU utilization for five seconds: 3%/1%; one minute: 5%; five minutes: 5%
+
+------
+LUONGYEN-LINKSW-C9200#sho processes memory sorted | in Processor| lsmpi_io
+Processor Pool Total:  669384360 Used:  119414700 Free:  549969660
+ lsmpi_io Pool Total:    3145264 Used:    3144292 Free:        972
+ 
+------
+LUONGYEN-LINKSW-C9200#show clock
+09:04:08.323 VIE Wed Apr 5 2023
+
+------
+LUONGYEN-LINKSW-C9200#show ntp status | in Clock is
+Clock is synchronized, stratum 2, reference is 192.168.207.130
+
+------
+LUONGYEN-LINKSW-C9200#sho environment all
+Sensor List: Environmental Monitoring 
+ Sensor          Location        State               Reading       Range(min-max)       
+ PS1 Vout        1               GOOD               12000 mV          na
+ PS1 Curout      1               GOOD               13000 mA          na
+ PS1 Powout      1               GOOD              156000 mW          na
+ PS1 Hotspot     1               GOOD                  22 Celsius     na
+ PS1 Fan Status  1               GOOD               43008 rpm         na
+ PS1 Status word 1               GOOD                   0             na
+ PS2 Vout        1               GOOD               12000 mV          na
+ PS2 CURout      1               GOOD               12000 mA          na
+ PS2 Powout      1               GOOD              144000 mW          na
+ PS2 Hotspot     1               GOOD                  24 Celsius     na
+ PS2 Fan Status  1               GOOD               44544 rpm         na
+ PS2 Status word 1               GOOD                   0             na
+ SYSTEM INLET    1               GREEN                 31 Celsius   0 - 56
+ SYSTEM OUTLET   1               GREEN                 25 Celsius   0 - 125
+ SYSTEM HOTSPOT  1               GREEN                 34 Celsius   0 - 125
+
+Switch   FAN     Speed   State   Airflow direction
+---------------------------------------------------
+  1       1     5595      OK     Front to Back
+  1       2     5445      OK     Front to Back
+
+SW  PID                 Serial#     Status           Sys Pwr  PoE Pwr  Watts
+--  ------------------  ----------  ---------------  -------  -------  -----
+1A  PWR-C6-125WAC       LIT2638ACEQ  OK              Good     n/a      125 
+1B  PWR-C6-125WAC       LIT2639AY6J  OK              Good     n/a      125 
+
+---------------------------------------------------
+
+Sensor List: Environmental Monitoring 
+ Sensor          Location        State               Reading       Range(min-max)       
+ PS1 Vout        2               GOOD               12000 mV          na
+ PS1 Curout      2               GOOD               14000 mA          na
+ PS1 Powout      2               GOOD              168000 mW          na
+ PS1 Hotspot     2               GOOD                  23 Celsius     na
+ PS1 Fan Status  2               GOOD               43008 rpm         na
+ PS1 Status word 2               GOOD                   0             na
+ PS2 Vout        2               GOOD               12000 mV          na
+ PS2 CURout      2               GOOD               12000 mA          na
+ PS2 Powout      2               GOOD              144000 mW          na
+ PS2 Hotspot     2               GOOD                  24 Celsius     na
+ PS2 Fan Status  2               GOOD               44544 rpm         na
+ PS2 Status word 2               GOOD                   0             na
+ SYSTEM INLET    2               GREEN                 30 Celsius   0 - 56
+ SYSTEM OUTLET   2               GREEN                 26 Celsius   0 - 125
+ SYSTEM HOTSPOT  2               GREEN                 36 Celsius   0 - 125
+
+Switch   FAN     Speed   State   Airflow direction
+---------------------------------------------------
+  2       1     5595      OK     Front to Back
+  2       2     5670      OK     Front to Back
+
+SW  PID                 Serial#     Status           Sys Pwr  PoE Pwr  Watts
+--  ------------------  ----------  ---------------  -------  -------  -----
+2A  PWR-C6-125WAC       LIT2638ADLZ  OK              Good     n/a      125 
+2B  PWR-C6-125WAC       LIT2639AYGR  OK              Good     n/a      125 
+
+
+------
+
+LUONGYEN-LINKSW-C9200#show interfaces des
+Interface                      Status         Protocol Description
+Vl1                            up             up       
+Vl11                           up             up       
+Gi0/0                          admin down     down     
+Gi1/0/1                        up             up       LUONGYEN-SW01 
+Gi1/0/2                        up             up       LUONGYEN-SW02
+Gi1/0/3                        up             up       LUONGYEN-SW03
+Gi1/0/4                        up             up       LUONGYEN-SW04 
+Gi1/0/5                        up             up       LUONGYEN-SW05
+Gi1/0/6                        up             up       LUONGYEN-SW06 
+Gi1/0/7                        up             up       LUONGYEN-SW07 
+Gi1/0/8                        up             up       LUONGYEN-SW08
+Gi1/0/9                        up             up       LUONGYEN-SW09
+Gi1/0/10                       up             up       LUONGYEN-SW10
+Gi1/0/11                       up             up       LUONGYEN-SW11
+Gi1/0/12                       up             up       LUONGYEN-SW12
+Gi1/0/13                       up             up       LUONGYEN-SW13
+Gi1/0/14                       up             up       LUONGYEN-SW14
+Gi1/0/15                       up             up       LUONGYEN-SW15
+Gi1/0/16                       up             up       LUONGYEN-SW16
+Gi1/0/17                       up             up       LUONGYEN-SW17
+Gi1/0/18                       up             up       LUONGYEN-SW18
+Gi1/0/19                       up             up       LUONGYEN-SW19
+
+===================================================================
+
+Nexus:
+
+DC-Srv-Sw-N3524X-01# show system resource | in CPU
+CPU states  :   5.00% user,   5.50% kernel,   89.50% idle
+        CPU0 states  :   4.00% user,   2.00% kernel,   94.00% idle
+        CPU1 states  :   0.00% user,   0.00% kernel,   100.00% idle
+        CPU2 states  :   16.00% user,   20.00% kernel,   64.00% idle
+        CPU3 states  :   0.00% user,   0.00% kernel,   100.00% idle
+		
+DC-Srv-Sw-N3524X-01# show system resource | in Memory
+Memory usage:   3794024K total,   2612888K used,   1181136K free
+
+-------
+DC-Srv-Sw-N3524X-01# show clock
+09:13:09.149 ICT Wed Apr 05 2023
+Time source is NTP
+
+------
+DC-Srv-Sw-N3524X-01# show ntp peer-status
+Total peers : 2
+* - selected for sync, + -  peer mode(active), 
+- - peer mode(passive), = - polled in client mode 
+    remote               local                 st   poll   reach delay   vrf
+-------------------------------------------------------------------------------
+*192.168.207.130        0.0.0.0                 1   64     377   0.00049 management
+=192.168.0.130          0.0.0.0                 2   64     377   0.02246 management
+
+
+------
+DC-Srv-Sw-N3524X-01# sho environment fan
+
+
+Fan:
+------------------------------------------------------
+Fan             Model                Hw         Status
+------------------------------------------------------
+Fan-1           NXA-FAN-30CFM-F      --         ok
+Fan-2           NXA-FAN-30CFM-F      --         ok
+Fan-3           NXA-FAN-30CFM-F      --         ok
+Fan-4           NXA-FAN-30CFM-F      --         ok
+PS-1            N2200-PAC-400W       --         ok
+PS-2            N2200-PAC-400W       --         ok
+
+
+------
+DC-Srv-Sw-N3524X-01# sho environment power
+
+
+Power Supply:
+Voltage: 12 Volts
+-----------------------------------------------------------
+PS  Model                Input Power       Current   Status
+                         Type  (Watts)     (Amps)          
+-----------------------------------------------------------
+1   N2200-PAC-400W       AC     396.00     33.00     ok                  
+2   N2200-PAC-400W       AC     396.00     33.00     ok                  
+
+
+Mod Model                   Power     Current     Power     Current     Status
+                            Requested Requested   Allocated Allocated         
+                            (Watts)   (Amps)      (Watts)   (Amps)              
+--- ----------------------  -------   ----------  --------- ----------  ----------
+1    N3K-C3548P-10GX-SUP    349.20    29.10       349.20    29.10       powered-up
+
+
+Power Usage Summary:
+--------------------
+Power Supply redundancy mode:                 Redundant
+Power Supply redundancy operational mode:     Redundant
+
+Total Power Capacity                              792.00 W
+
+Power reserved for Supervisor(s)                  349.20 W
+Power currently used by Modules                     0.00 W
+
+                                                -------------
+Total Power Available                             442.80 W
+                                                -------------
+												
+------
+DC-Srv-Sw-N3524X-01# sho environment temperature
+
+ Control Temperature
+------------------------------------------------
+ Sensor     MajorThresh   MinorThres   CurTemp  
+            (Celsius)     (Celsius)    (Celsius)
+------------------------------------------------
+ ASIC       92            85           50         
+ INTAKE     45            31           35         
+------------------------------------------------
+
+ Monitor Temperature
+---------------------------------------------------------
+ Sensor     MajorThresh   MinorThres   CurTemp     Status
+            (Celsius)     (Celsius)    (Celsius)         
+---------------------------------------------------------
+ ASIC       110           90           50          ok             
+ INTAKE     70            40           35          ok             
+--------------------------------------------------------

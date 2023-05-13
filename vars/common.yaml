@@ -1,0 +1,7 @@
+ansible_network_os: ios
+ansible_connection: network_cli
+date: "{{lookup('pipe','date +%Y%m%d')}}"
+ansible_user: '{{ username }}'
+ansible_password: '{{ password }}'
+cpu_threshold: 80
+memory_threshold: 1600000000

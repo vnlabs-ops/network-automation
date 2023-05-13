@@ -1,0 +1,867 @@
+
+PLAY [Health check] ************************************************************
+
+TASK [Get the facts] ***********************************************************
+ok: [10.10.6.109]
+ok: [10.10.6.108]
+ok: [10.48.0.10]
+
+TASK [Check and return check_result] *******************************************
+included: /runner/project/sub-tasks/router.yml for 10.48.0.10, 10.10.6.108, 10.10.6.109
+
+TASK [Run commands from the command list] **************************************
+ok: [10.10.6.108] => (item={'cmd': 'show processes cpu | in CPU', 'condition': ['80']})
+ok: [10.48.0.10] => (item={'cmd': 'show processes cpu | in CPU', 'condition': ['80']})
+ok: [10.10.6.109] => (item={'cmd': 'show processes cpu | in CPU', 'condition': ['80']})
+ok: [10.10.6.108] => (item={'cmd': 'sho processes memory sorted | in Processor| lsmpi_io', 'condition': ['1600000000']})
+ok: [10.48.0.10] => (item={'cmd': 'sho processes memory sorted | in Processor| lsmpi_io', 'condition': ['1600000000']})
+ok: [10.10.6.109] => (item={'cmd': 'sho processes memory sorted | in Processor| lsmpi_io', 'condition': ['1600000000']})
+ok: [10.10.6.108] => (item={'cmd': 'show ntp status | in Clock is', 'condition': ['Clock is unsynchronized']})
+ok: [10.10.6.109] => (item={'cmd': 'show ntp status | in Clock is', 'condition': ['Clock is unsynchronized']})
+ok: [10.48.0.10] => (item={'cmd': 'show ntp status | in Clock is', 'condition': ['Clock is unsynchronized']})
+ok: [10.10.6.108] => (item={'cmd': 'sho environment all', 'condition': ['Warning', 'Critical', 'Failed']})
+ok: [10.48.0.10] => (item={'cmd': 'sho environment all', 'condition': ['Abnormal', 'Failed', 'Not Present', 'Warning', 'Critical', 'Shutdown']})
+ok: [10.10.6.109] => (item={'cmd': 'sho environment all', 'condition': ['Warning', 'Critical', 'Failed']})
+ok: [10.10.6.108] => (item={'cmd': 'show interfaces status', 'condition': ['notconnect']})
+ok: [10.10.6.109] => (item={'cmd': 'show interfaces status', 'condition': ['notconnect']})
+ok: [10.48.0.10] => (item={'cmd': 'show interfaces status', 'condition': ['notconnect']})
+ok: [10.10.6.108] => (item={'cmd': 'show ip ospf neighbor | in EXSTART|2WAY|LOADING|DOWN', 'condition': ['EXSTART', '2WAY', 'LOADING', 'DOWN']})
+ok: [10.10.6.109] => (item={'cmd': 'show ip ospf neighbor | in EXSTART|2WAY|LOADING|DOWN', 'condition': ['EXSTART', '2WAY', 'LOADING', 'DOWN']})
+
+TASK [Print cmd_outputs] *******************************************************
+ok: [10.48.0.10] => {
+    "msg": {
+        "changed": false,
+        "msg": "All items completed",
+        "results": [
+            {
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "invocation": {
+                    "module_args": {
+                        "commands": [
+                            "show processes cpu | in CPU"
+                        ],
+                        "interval": 1,
+                        "match": "all",
+                        "retries": 10,
+                        "wait_for": null
+                    }
+                },
+                "item": {
+                    "cmd": "show processes cpu | in CPU",
+                    "condition": [
+                        "80"
+                    ]
+                },
+                "stdout": [
+                    "CPU utilization for five seconds: 17%/1%; one minute: 7%; five minutes: 5%"
+                ],
+                "stdout_lines": [
+                    [
+                        "CPU utilization for five seconds: 17%/1%; one minute: 7%; five minutes: 5%"
+                    ]
+                ]
+            },
+            {
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "invocation": {
+                    "module_args": {
+                        "commands": [
+                            "sho processes memory sorted | in Processor| lsmpi_io"
+                        ],
+                        "interval": 1,
+                        "match": "all",
+                        "retries": 10,
+                        "wait_for": null
+                    }
+                },
+                "item": {
+                    "cmd": "sho processes memory sorted | in Processor| lsmpi_io",
+                    "condition": [
+                        "1600000000"
+                    ]
+                },
+                "stdout": [
+                    "Processor Pool Total:  669384360 Used:  119478120 Free:  549906240\\n lsmpi_io Pool Total:    3145264 Used:    3144292 Free:        972"
+                ],
+                "stdout_lines": [
+                    [
+                        "Processor Pool Total:  669384360 Used:  119478120 Free:  549906240",
+                        " lsmpi_io Pool Total:    3145264 Used:    3144292 Free:        972"
+                    ]
+                ]
+            },
+            {
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "invocation": {
+                    "module_args": {
+                        "commands": [
+                            "show ntp status | in Clock is"
+                        ],
+                        "interval": 1,
+                        "match": "all",
+                        "retries": 10,
+                        "wait_for": null
+                    }
+                },
+                "item": {
+                    "cmd": "show ntp status | in Clock is",
+                    "condition": [
+                        "Clock is unsynchronized"
+                    ]
+                },
+                "stdout": [
+                    "Clock is synchronized, stratum 2, reference is 192.168.207.130"
+                ],
+                "stdout_lines": [
+                    [
+                        "Clock is synchronized, stratum 2, reference is 192.168.207.130"
+                    ]
+                ]
+            },
+            {
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "invocation": {
+                    "module_args": {
+                        "commands": [
+                            "sho environment all"
+                        ],
+                        "interval": 1,
+                        "match": "all",
+                        "retries": 10,
+                        "wait_for": null
+                    }
+                },
+                "item": {
+                    "cmd": "sho environment all",
+                    "condition": [
+                        "Abnormal",
+                        "Failed",
+                        "Not Present",
+                        "Warning",
+                        "Critical",
+                        "Shutdown"
+                    ]
+                },
+                "stdout": [
+                    "Sensor List: Environmental Monitoring \\n Sensor          Location        State               Reading       Range(min-max)       \\n PS1 Vout        1               GOOD               12000 mV          na\\n PS1 Curout      1               GOOD               12000 mA          na\\n PS1 Powout      1               GOOD              144000 mW          na\\n PS1 Hotspot     1               GOOD                  22 Celsius     na\\n PS1 Fan Status  1               GOOD               43008 rpm         na\\n PS1 Status word 1               GOOD                   0             na\\n PS2 Vout        1               GOOD               12000 mV          na\\n PS2 CURout      1               GOOD               12000 mA          na\\n PS2 Powout      1               GOOD              144000 mW          na\\n PS2 Hotspot     1               GOOD                  24 Celsius     na\\n PS2 Fan Status  1               GOOD               44544 rpm         na\\n PS2 Status word 1               GOOD                   0             na\\n SYSTEM INLET    1               GREEN                 30 Celsius   0 - 56\\n SYSTEM OUTLET   1               GREEN                 24 Celsius   0 - 125\\n SYSTEM HOTSPOT  1               GREEN                 32 Celsius   0 - 125\\n\\nSwitch\\t FAN\\t Speed\\t State\\t Airflow direction\\n---------------------------------------------------\\n  1  \\t  1\\t5475 \\t  OK\\t Front to Back\\n  1  \\t  2\\t5565 \\t  OK\\t Front to Back\\n\\nSW  PID                 Serial#     Status           Sys Pwr  PoE Pwr  Watts\\n--  ------------------  ----------  ---------------  -------  -------  -----\\n1A  PWR-C6-125WAC       LIT2638ACEQ  OK              Good     n/a      125 \\n1B  PWR-C6-125WAC       LIT2639AY6J  OK              Good     n/a      125 \\n\\n---------------------------------------------------\\n\\nSensor List: Environmental Monitoring \\n Sensor          Location        State               Reading       Range(min-max)       \\n PS1 Vout        2               GOOD               12000 mV          na\\n PS1 Curout      2               GOOD               13000 mA          na\\n PS1 Powout      2               GOOD              156000 mW          na\\n PS1 Hotspot     2               GOOD                  23 Celsius     na\\n PS1 Fan Status  2               GOOD               43008 rpm         na\\n PS1 Status word 2               GOOD                   0             na\\n PS2 Vout        2               GOOD               12000 mV          na\\n PS2 CURout      2               GOOD               11000 mA          na\\n PS2 Powout      2               GOOD              132000 mW          na\\n PS2 Hotspot     2               GOOD                  24 Celsius     na\\n PS2 Fan Status  2               GOOD               44544 rpm         na\\n PS2 Status word 2               GOOD                   0             na\\n SYSTEM INLET    2               GREEN                 29 Celsius   0 - 56\\n SYSTEM OUTLET   2               GREEN                 25 Celsius   0 - 125\\n SYSTEM HOTSPOT  2               GREEN                 35 Celsius   0 - 125\\n\\nSwitch\\t FAN\\t Speed\\t State\\t Airflow direction\\n---------------------------------------------------\\n  2  \\t  1\\t5475 \\t  OK\\t Front to Back\\n  2  \\t  2\\t5475 \\t  OK\\t Front to Back\\n\\nSW  PID                 Serial#     Status           Sys Pwr  PoE Pwr  Watts\\n--  ------------------  ----------  ---------------  -------  -------  -----\\n2A  PWR-C6-125WAC       LIT2638ADLZ  OK              Good     n/a      125 \\n2B  PWR-C6-125WAC       LIT2639AYGR  OK              Good     n/a      125 \\n\\n---------------------------------------------------"
+                ],
+                "stdout_lines": [
+                    [
+                        "Sensor List: Environmental Monitoring ",
+                        " Sensor          Location        State               Reading       Range(min-max)       ",
+                        " PS1 Vout        1               GOOD               12000 mV          na",
+                        " PS1 Curout      1               GOOD               12000 mA          na",
+                        " PS1 Powout      1               GOOD              144000 mW          na",
+                        " PS1 Hotspot     1               GOOD                  22 Celsius     na",
+                        " PS1 Fan Status  1               GOOD               43008 rpm         na",
+                        " PS1 Status word 1               GOOD                   0             na",
+                        " PS2 Vout        1               GOOD               12000 mV          na",
+                        " PS2 CURout      1               GOOD               12000 mA          na",
+                        " PS2 Powout      1               GOOD              144000 mW          na",
+                        " PS2 Hotspot     1               GOOD                  24 Celsius     na",
+                        " PS2 Fan Status  1               GOOD               44544 rpm         na",
+                        " PS2 Status word 1               GOOD                   0             na",
+                        " SYSTEM INLET    1               GREEN                 30 Celsius   0 - 56",
+                        " SYSTEM OUTLET   1               GREEN                 24 Celsius   0 - 125",
+                        " SYSTEM HOTSPOT  1               GREEN                 32 Celsius   0 - 125",
+                        "",
+                        "Switch\\t FAN\\t Speed\\t State\\t Airflow direction",
+                        "---------------------------------------------------",
+                        "  1  \\t  1\\t5475 \\t  OK\\t Front to Back",
+                        "  1  \\t  2\\t5565 \\t  OK\\t Front to Back",
+                        "",
+                        "SW  PID                 Serial#     Status           Sys Pwr  PoE Pwr  Watts",
+                        "--  ------------------  ----------  ---------------  -------  -------  -----",
+                        "1A  PWR-C6-125WAC       LIT2638ACEQ  OK              Good     n/a      125 ",
+                        "1B  PWR-C6-125WAC       LIT2639AY6J  OK              Good     n/a      125 ",
+                        "",
+                        "---------------------------------------------------",
+                        "",
+                        "Sensor List: Environmental Monitoring ",
+                        " Sensor          Location        State               Reading       Range(min-max)       ",
+                        " PS1 Vout        2               GOOD               12000 mV          na",
+                        " PS1 Curout      2               GOOD               13000 mA          na",
+                        " PS1 Powout      2               GOOD              156000 mW          na",
+                        " PS1 Hotspot     2               GOOD                  23 Celsius     na",
+                        " PS1 Fan Status  2               GOOD               43008 rpm         na",
+                        " PS1 Status word 2               GOOD                   0             na",
+                        " PS2 Vout        2               GOOD               12000 mV          na",
+                        " PS2 CURout      2               GOOD               11000 mA          na",
+                        " PS2 Powout      2               GOOD              132000 mW          na",
+                        " PS2 Hotspot     2               GOOD                  24 Celsius     na",
+                        " PS2 Fan Status  2               GOOD               44544 rpm         na",
+                        " PS2 Status word 2               GOOD                   0             na",
+                        " SYSTEM INLET    2               GREEN                 29 Celsius   0 - 56",
+                        " SYSTEM OUTLET   2               GREEN                 25 Celsius   0 - 125",
+                        " SYSTEM HOTSPOT  2               GREEN                 35 Celsius   0 - 125",
+                        "",
+                        "Switch\\t FAN\\t Speed\\t State\\t Airflow direction",
+                        "---------------------------------------------------",
+                        "  2  \\t  1\\t5475 \\t  OK\\t Front to Back",
+                        "  2  \\t  2\\t5475 \\t  OK\\t Front to Back",
+                        "",
+                        "SW  PID                 Serial#     Status           Sys Pwr  PoE Pwr  Watts",
+                        "--  ------------------  ----------  ---------------  -------  -------  -----",
+                        "2A  PWR-C6-125WAC       LIT2638ADLZ  OK              Good     n/a      125 ",
+                        "2B  PWR-C6-125WAC       LIT2639AYGR  OK              Good     n/a      125 ",
+                        "",
+                        "---------------------------------------------------"
+                    ]
+                ]
+            },
+            {
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "invocation": {
+                    "module_args": {
+                        "commands": [
+                            "show interfaces status"
+                        ],
+                        "interval": 1,
+                        "match": "all",
+                        "retries": 10,
+                        "wait_for": null
+                    }
+                },
+                "item": {
+                    "cmd": "show interfaces status",
+                    "condition": [
+                        "notconnect"
+                    ]
+                },
+                "stdout": [
+                    "Port         Name               Status       Vlan       Duplex  Speed Type\\nGi1/0/1      LUONGYEN-SW01      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi1/0/2      LUONGYEN-SW02      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi1/0/3      LUONGYEN-SW03      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi1/0/4      LUONGYEN-SW04      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi1/0/5      LUONGYEN-SW05      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi1/0/6      LUONGYEN-SW06      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi1/0/7      LUONGYEN-SW07      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi1/0/8      LUONGYEN-SW08      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi1/0/9      LUONGYEN-SW09      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi1/0/10     LUONGYEN-SW10      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi1/0/11     LUONGYEN-SW11      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi1/0/12     LUONGYEN-SW12      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi1/0/13     LUONGYEN-SW13      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi1/0/14     LUONGYEN-SW14      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi1/0/15     LUONGYEN-SW15      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi1/0/16     LUONGYEN-SW16      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi1/0/17     LUONGYEN-SW17      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi1/0/18     LUONGYEN-SW18      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi1/0/19     LUONGYEN-SW19      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi1/0/20     LUONGYEN-SW20      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi1/0/21                        notconnect   1            auto   auto 10/100/1000BaseTX\\nGi1/0/22                        disabled     1            auto   auto 10/100/1000BaseTX\\nGi1/0/23                        disabled     1            auto   auto 10/100/1000BaseTX\\nGi1/0/24                        disabled     1            auto   auto 10/100/1000BaseTX\\nGi1/0/25                        disabled     1            auto   auto 10/100/1000BaseTX\\nGi1/0/26                        disabled     1            auto   auto 10/100/1000BaseTX\\nGi1/0/27                        disabled     1            auto   auto 10/100/1000BaseTX\\nGi1/0/28                        disabled     1            auto   auto 10/100/1000BaseTX\\nGi1/0/29                        disabled     1            auto   auto 10/100/1000BaseTX\\nGi1/0/30                        disabled     1            auto   auto 10/100/1000BaseTX\\nGi1/0/31                        disabled     1            auto   auto 10/100/1000BaseTX\\nGi1/0/32                        disabled     1            auto   auto 10/100/1000BaseTX\\nGi1/0/33                        disabled     1            auto   auto 10/100/1000BaseTX\\nGi1/0/34                        disabled     1            auto   auto 10/100/1000BaseTX\\nGi1/0/35     HA-LY-FW-Campus520 connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi1/0/36     HA-LY-FW-Campus520 connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi1/0/37     HA-LY-FW-Campus520 connected    11         a-full a-1000 10/100/1000BaseTX\\nGi1/0/38     LUONGYEN-LINKSW-C9 connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi1/0/39     LUONGYEN-LINKSW-C9 connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi1/0/40     LYEN-FW-Campus-01_ connected    11         a-full a-1000 10/100/1000BaseTX\\nGi1/0/41     LYEN-FW-Campus-01_ disabled     1            auto   auto 10/100/1000BaseTX\\nGi1/0/42     LYEN-FW-Campus-02_ disabled     1            auto   auto 10/100/1000BaseTX\\nGi1/0/43     INTERNET-MX68      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi1/0/44     ITC_LUONGYEN       connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi1/0/45     HTC_LUONGYEN_Reser disabled     1305         auto   auto 10/100/1000BaseTX\\nGi1/0/46                        disabled     1            auto   auto 10/100/1000BaseTX\\nGi1/0/47     LYEN-WAN-RT01-G0/0 connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi1/0/48     LYEN-WAN-RT02-G0/0 connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi2/0/1      LUONGYEN-SW01      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi2/0/2      LUONGYEN-SW02      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi2/0/3      LUONGYEN-SW03      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi2/0/4      LUONGYEN-SW04      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi2/0/5      LUONGYEN-SW05      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi2/0/6      LUONGYEN-SW06      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi2/0/7      LUONGYEN-SW07      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi2/0/8      LUONGYEN-SW08      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi2/0/9      LUONGYEN-SW09      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi2/0/10     LUONGYEN-SW10      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi2/0/11     LUONGYEN-SW11      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi2/0/12     LUONGYEN-SW12      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi2/0/13     LUONGYEN-SW13      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi2/0/14     LUONGYEN-SW14      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi2/0/15     LUONGYEN-SW15      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi2/0/16     LUONGYEN-SW16      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi2/0/17     LUONGYEN-SW17      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi2/0/18     LUONGYEN-SW18      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi2/0/19     LUONGYEN-SW19      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi2/0/20     LUONGYEN-SW20      connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi2/0/21                        disabled     1            auto   auto 10/100/1000BaseTX\\nGi2/0/22                        disabled     1            auto   auto 10/100/1000BaseTX\\nGi2/0/23                        disabled     1            auto   auto 10/100/1000BaseTX\\nGi2/0/24                        disabled     1            auto   auto 10/100/1000BaseTX\\nGi2/0/25                        disabled     1            auto   auto 10/100/1000BaseTX\\nGi2/0/26                        disabled     1            auto   auto 10/100/1000BaseTX\\nGi2/0/27                        disabled     1            auto   auto 10/100/1000BaseTX\\nGi2/0/28                        disabled     1            auto   auto 10/100/1000BaseTX\\nGi2/0/29                        disabled     1            auto   auto 10/100/1000BaseTX\\nGi2/0/30                        disabled     1            auto   auto 10/100/1000BaseTX\\nGi2/0/31                        disabled     1            auto   auto 10/100/1000BaseTX\\nGi2/0/32                        disabled     1            auto   auto 10/100/1000BaseTX\\nGi2/0/33                        disabled     1            auto   auto 10/100/1000BaseTX\\nGi2/0/34                        disabled     1            auto   auto 10/100/1000BaseTX\\nGi2/0/35     HA-LY-FW-Campus520 connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi2/0/36     HA-LY-FW-Campus520 connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi2/0/37     HA-LY-FW-Campus520 connected    11         a-full a-1000 10/100/1000BaseTX\\nGi2/0/38     LUONGYEN-LINKSW-C9 connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi2/0/39     LUONGYEN-LINKSW-C9 connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi2/0/40     LYEN-FW-Campus-02_ connected    11         a-full a-1000 10/100/1000BaseTX\\nGi2/0/41     LYEN-FW-Campus-01_ disabled     1            auto   auto 10/100/1000BaseTX\\nGi2/0/42     LYEN-FW-Campus-02_ disabled     1            auto   auto 10/100/1000BaseTX\\nGi2/0/43     INTERNET-MX68_BK   connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi2/0/44     ITC_LUONGYEN_Reser disabled     1            auto   auto 10/100/1000BaseTX\\nGi2/0/45     HTC_LUONGYEN       connected    1305       a-full a-1000 10/100/1000BaseTX\\nGi2/0/46                        disabled     1            auto   auto 10/100/1000BaseTX\\nGi2/0/47     LYEN-WAN-RT01-G0/0 connected    trunk      a-full a-1000 10/100/1000BaseTX\\nGi2/0/48     LYEN-WAN-RT02-G0/0 connected    trunk      a-full a-1000 10/100/1000BaseTX\\nPo1          LUONGYEN_SW01      connected    trunk      a-full a-1000 N/A\\nPo2          LUONGYEN_SW02      connected    trunk      a-full a-1000 N/A\\nPo3          LUONGYEN_SW03      connected    trunk      a-full a-1000 N/A\\nPo4          LUONGYEN_SW04      connected    trunk      a-full a-1000 N/A\\nPo5          LUONGYEN_SW05      connected    trunk      a-full a-1000 N/A\\nPo6          LUONGYEN_SW06      connected    trunk      a-full a-1000 N/A\\nPo7          LUONGYEN_SW07      connected    trunk      a-full a-1000 N/A\\nPo8          LUONGYEN_SW08      connected    trunk      a-full a-1000 N/A\\nPo9          LUONGYEN_SW09      connected    trunk      a-full a-1000 N/A\\nPo10         LUONGYEN_SW10      connected    trunk      a-full a-1000 N/A\\nPo11         LUONGYEN_SW11      connected    trunk      a-full a-1000 N/A\\nPo12         LUONGYEN_SW12      connected    trunk      a-full a-1000 N/A\\nPo13         LUONGYEN_SW13      connected    trunk      a-full a-1000 N/A\\nPo14         LUONGYEN_SW14      connected    trunk      a-full a-1000 N/A\\nPo15         LUONGYEN_SW15      connected    trunk      a-full a-1000 N/A\\nPo16         LUONGYEN_SW16      connected    trunk      a-full a-1000 N/A\\nPo17         LUONGYEN_SW17      connected    trunk      a-full a-1000 N/A\\nPo18         LUONGYEN_SW18      connected    trunk      a-full a-1000 N/A\\nPo19         LUONGYEN-SW19      connected    trunk      a-full a-1000 N/A\\nPo20         LUONGYEN-SW20      connected    trunk      a-full a-1000 N/A\\nPo35         LYEN-FW-Campus-01( connected    trunk      a-full a-1000 N/A\\nPo36         LYEN-FW-Campus-02( connected    trunk      a-full a-1000 N/A\\nPo39         T8-LinkSW          connected    trunk      a-full a-1000 N/A\\nPo41         LYEN-FW-Campus-01_ disabled     1            auto   auto N/A\\nPo42         LYEN-FW-Campus-02_ disabled     1            auto   auto N/A\\nPo47         LYEN-WAN-RT01_Po1  connected    trunk      a-full a-1000 N/A\\nPo48         LYEN-WAN-RT02_Po1  connected    trunk      a-full a-1000 N/A"
+                ],
+                "stdout_lines": [
+                    [
+                        "Port         Name               Status       Vlan       Duplex  Speed Type",
+                        "Gi1/0/1      LUONGYEN-SW01      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi1/0/2      LUONGYEN-SW02      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi1/0/3      LUONGYEN-SW03      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi1/0/4      LUONGYEN-SW04      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi1/0/5      LUONGYEN-SW05      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi1/0/6      LUONGYEN-SW06      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi1/0/7      LUONGYEN-SW07      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi1/0/8      LUONGYEN-SW08      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi1/0/9      LUONGYEN-SW09      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi1/0/10     LUONGYEN-SW10      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi1/0/11     LUONGYEN-SW11      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi1/0/12     LUONGYEN-SW12      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi1/0/13     LUONGYEN-SW13      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi1/0/14     LUONGYEN-SW14      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi1/0/15     LUONGYEN-SW15      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi1/0/16     LUONGYEN-SW16      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi1/0/17     LUONGYEN-SW17      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi1/0/18     LUONGYEN-SW18      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi1/0/19     LUONGYEN-SW19      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi1/0/20     LUONGYEN-SW20      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi1/0/21                        notconnect   1            auto   auto 10/100/1000BaseTX",
+                        "Gi1/0/22                        disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi1/0/23                        disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi1/0/24                        disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi1/0/25                        disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi1/0/26                        disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi1/0/27                        disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi1/0/28                        disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi1/0/29                        disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi1/0/30                        disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi1/0/31                        disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi1/0/32                        disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi1/0/33                        disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi1/0/34                        disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi1/0/35     HA-LY-FW-Campus520 connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi1/0/36     HA-LY-FW-Campus520 connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi1/0/37     HA-LY-FW-Campus520 connected    11         a-full a-1000 10/100/1000BaseTX",
+                        "Gi1/0/38     LUONGYEN-LINKSW-C9 connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi1/0/39     LUONGYEN-LINKSW-C9 connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi1/0/40     LYEN-FW-Campus-01_ connected    11         a-full a-1000 10/100/1000BaseTX",
+                        "Gi1/0/41     LYEN-FW-Campus-01_ disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi1/0/42     LYEN-FW-Campus-02_ disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi1/0/43     INTERNET-MX68      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi1/0/44     ITC_LUONGYEN       connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi1/0/45     HTC_LUONGYEN_Reser disabled     1305         auto   auto 10/100/1000BaseTX",
+                        "Gi1/0/46                        disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi1/0/47     LYEN-WAN-RT01-G0/0 connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi1/0/48     LYEN-WAN-RT02-G0/0 connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi2/0/1      LUONGYEN-SW01      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi2/0/2      LUONGYEN-SW02      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi2/0/3      LUONGYEN-SW03      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi2/0/4      LUONGYEN-SW04      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi2/0/5      LUONGYEN-SW05      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi2/0/6      LUONGYEN-SW06      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi2/0/7      LUONGYEN-SW07      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi2/0/8      LUONGYEN-SW08      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi2/0/9      LUONGYEN-SW09      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi2/0/10     LUONGYEN-SW10      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi2/0/11     LUONGYEN-SW11      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi2/0/12     LUONGYEN-SW12      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi2/0/13     LUONGYEN-SW13      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi2/0/14     LUONGYEN-SW14      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi2/0/15     LUONGYEN-SW15      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi2/0/16     LUONGYEN-SW16      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi2/0/17     LUONGYEN-SW17      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi2/0/18     LUONGYEN-SW18      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi2/0/19     LUONGYEN-SW19      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi2/0/20     LUONGYEN-SW20      connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi2/0/21                        disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi2/0/22                        disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi2/0/23                        disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi2/0/24                        disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi2/0/25                        disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi2/0/26                        disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi2/0/27                        disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi2/0/28                        disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi2/0/29                        disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi2/0/30                        disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi2/0/31                        disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi2/0/32                        disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi2/0/33                        disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi2/0/34                        disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi2/0/35     HA-LY-FW-Campus520 connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi2/0/36     HA-LY-FW-Campus520 connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi2/0/37     HA-LY-FW-Campus520 connected    11         a-full a-1000 10/100/1000BaseTX",
+                        "Gi2/0/38     LUONGYEN-LINKSW-C9 connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi2/0/39     LUONGYEN-LINKSW-C9 connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi2/0/40     LYEN-FW-Campus-02_ connected    11         a-full a-1000 10/100/1000BaseTX",
+                        "Gi2/0/41     LYEN-FW-Campus-01_ disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi2/0/42     LYEN-FW-Campus-02_ disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi2/0/43     INTERNET-MX68_BK   connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi2/0/44     ITC_LUONGYEN_Reser disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi2/0/45     HTC_LUONGYEN       connected    1305       a-full a-1000 10/100/1000BaseTX",
+                        "Gi2/0/46                        disabled     1            auto   auto 10/100/1000BaseTX",
+                        "Gi2/0/47     LYEN-WAN-RT01-G0/0 connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Gi2/0/48     LYEN-WAN-RT02-G0/0 connected    trunk      a-full a-1000 10/100/1000BaseTX",
+                        "Po1          LUONGYEN_SW01      connected    trunk      a-full a-1000 N/A",
+                        "Po2          LUONGYEN_SW02      connected    trunk      a-full a-1000 N/A",
+                        "Po3          LUONGYEN_SW03      connected    trunk      a-full a-1000 N/A",
+                        "Po4          LUONGYEN_SW04      connected    trunk      a-full a-1000 N/A",
+                        "Po5          LUONGYEN_SW05      connected    trunk      a-full a-1000 N/A",
+                        "Po6          LUONGYEN_SW06      connected    trunk      a-full a-1000 N/A",
+                        "Po7          LUONGYEN_SW07      connected    trunk      a-full a-1000 N/A",
+                        "Po8          LUONGYEN_SW08      connected    trunk      a-full a-1000 N/A",
+                        "Po9          LUONGYEN_SW09      connected    trunk      a-full a-1000 N/A",
+                        "Po10         LUONGYEN_SW10      connected    trunk      a-full a-1000 N/A",
+                        "Po11         LUONGYEN_SW11      connected    trunk      a-full a-1000 N/A",
+                        "Po12         LUONGYEN_SW12      connected    trunk      a-full a-1000 N/A",
+                        "Po13         LUONGYEN_SW13      connected    trunk      a-full a-1000 N/A",
+                        "Po14         LUONGYEN_SW14      connected    trunk      a-full a-1000 N/A",
+                        "Po15         LUONGYEN_SW15      connected    trunk      a-full a-1000 N/A",
+                        "Po16         LUONGYEN_SW16      connected    trunk      a-full a-1000 N/A",
+                        "Po17         LUONGYEN_SW17      connected    trunk      a-full a-1000 N/A",
+                        "Po18         LUONGYEN_SW18      connected    trunk      a-full a-1000 N/A",
+                        "Po19         LUONGYEN-SW19      connected    trunk      a-full a-1000 N/A",
+                        "Po20         LUONGYEN-SW20      connected    trunk      a-full a-1000 N/A",
+                        "Po35         LYEN-FW-Campus-01( connected    trunk      a-full a-1000 N/A",
+                        "Po36         LYEN-FW-Campus-02( connected    trunk      a-full a-1000 N/A",
+                        "Po39         T8-LinkSW          connected    trunk      a-full a-1000 N/A",
+                        "Po41         LYEN-FW-Campus-01_ disabled     1            auto   auto N/A",
+                        "Po42         LYEN-FW-Campus-02_ disabled     1            auto   auto N/A",
+                        "Po47         LYEN-WAN-RT01_Po1  connected    trunk      a-full a-1000 N/A",
+                        "Po48         LYEN-WAN-RT02_Po1  connected    trunk      a-full a-1000 N/A"
+                    ]
+                ]
+            }
+        ],
+        "skipped": false
+    }
+}
+ok: [10.10.6.108] => {
+    "msg": {
+        "changed": false,
+        "msg": "All items completed",
+        "results": [
+            {
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "invocation": {
+                    "module_args": {
+                        "commands": [
+                            "show processes cpu | in CPU"
+                        ],
+                        "interval": 1,
+                        "match": "all",
+                        "retries": 10,
+                        "wait_for": null
+                    }
+                },
+                "item": {
+                    "cmd": "show processes cpu | in CPU",
+                    "condition": [
+                        "80"
+                    ]
+                },
+                "stdout": [
+                    "CPU utilization for five seconds: 1%/0%; one minute: 2%; five minutes: 1%"
+                ],
+                "stdout_lines": [
+                    [
+                        "CPU utilization for five seconds: 1%/0%; one minute: 2%; five minutes: 1%"
+                    ]
+                ]
+            },
+            {
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "invocation": {
+                    "module_args": {
+                        "commands": [
+                            "sho processes memory sorted | in Processor| lsmpi_io"
+                        ],
+                        "interval": 1,
+                        "match": "all",
+                        "retries": 10,
+                        "wait_for": null
+                    }
+                },
+                "item": {
+                    "cmd": "sho processes memory sorted | in Processor| lsmpi_io",
+                    "condition": [
+                        "1600000000"
+                    ]
+                },
+                "stdout": [
+                    "Processor Pool Total: 1827002000 Used:  272710176 Free: 1554291824\\n lsmpi_io Pool Total:    6295128 Used:    6294296 Free:        832"
+                ],
+                "stdout_lines": [
+                    [
+                        "Processor Pool Total: 1827002000 Used:  272710176 Free: 1554291824",
+                        " lsmpi_io Pool Total:    6295128 Used:    6294296 Free:        832"
+                    ]
+                ]
+            },
+            {
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "invocation": {
+                    "module_args": {
+                        "commands": [
+                            "show ntp status | in Clock is"
+                        ],
+                        "interval": 1,
+                        "match": "all",
+                        "retries": 10,
+                        "wait_for": null
+                    }
+                },
+                "item": {
+                    "cmd": "show ntp status | in Clock is",
+                    "condition": [
+                        "Clock is unsynchronized"
+                    ]
+                },
+                "stdout": [
+                    "Clock is synchronized, stratum 2, reference is 192.168.207.130"
+                ],
+                "stdout_lines": [
+                    [
+                        "Clock is synchronized, stratum 2, reference is 192.168.207.130"
+                    ]
+                ]
+            },
+            {
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "invocation": {
+                    "module_args": {
+                        "commands": [
+                            "sho environment all"
+                        ],
+                        "interval": 1,
+                        "match": "all",
+                        "retries": 10,
+                        "wait_for": null
+                    }
+                },
+                "item": {
+                    "cmd": "sho environment all",
+                    "condition": [
+                        "Warning",
+                        "Critical",
+                        "Failed"
+                    ]
+                },
+                "stdout": [
+                    "Sensor List:  Environmental Monitoring \\n Sensor           Location          State             Reading\\n RPM: fan0        P2                Normal            5340 RPM\\n RPM: fan1        P2                Normal            5400 RPM\\n RPM: fan2        P2                Normal            5400 RPM\\n RPM: fan3        P2                Normal            5340 RPM\\n P: pwr           P2                Normal            2 Watts\\n Temp: Inlet      R0                Normal            23 Celsius\\n Temp: Internal   R0                Normal            20 Celsius\\n Temp: Outlet     R0                Normal            27 Celsius\\n Temp: CPU        R0                Normal            29 Celsius\\n V: 12v           R0                Normal            12079 mV\\n V: 5v            R0                Normal            5072 mV\\n V: 3.3v          R0                Normal            3298 mV\\n V: 3.0v          R0                Normal            2994 mV\\n V: 2.5v          R0                Normal            2475 mV\\n V: 1.35v CPU     R0                Normal            1347 mV\\n V: 1.8v          R0                Normal            1817 mV\\n V: 1.2v          R0                Normal            1198 mV\\n V: VNN CPU       R0                Normal            964 mV\\n V: 1.1v          R0                Normal            1068 mV\\n V: 1.0v          R0                Normal            999 mV\\n V: 1.8v CPU      R0                Normal            1822 mV\\n V: DDR           R0                Normal            1506 mV\\n V: 3.3v STBY     R0                Normal            3338 mV\\n V: 1.5v          R0                Normal            1506 mV\\n V: 1.0v CPU      R0                Normal            999 mV\\n V: VCC CPU       R0                Normal            867 mV\\n V: 0.75v         R0                Normal            749 mV\\n I: 12v           R0                Normal            2 A\\n P: pwr           R0                Normal            24 Watts"
+                ],
+                "stdout_lines": [
+                    [
+                        "Sensor List:  Environmental Monitoring ",
+                        " Sensor           Location          State             Reading",
+                        " RPM: fan0        P2                Normal            5340 RPM",
+                        " RPM: fan1        P2                Normal            5400 RPM",
+                        " RPM: fan2        P2                Normal            5400 RPM",
+                        " RPM: fan3        P2                Normal            5340 RPM",
+                        " P: pwr           P2                Normal            2 Watts",
+                        " Temp: Inlet      R0                Normal            23 Celsius",
+                        " Temp: Internal   R0                Normal            20 Celsius",
+                        " Temp: Outlet     R0                Normal            27 Celsius",
+                        " Temp: CPU        R0                Normal            29 Celsius",
+                        " V: 12v           R0                Normal            12079 mV",
+                        " V: 5v            R0                Normal            5072 mV",
+                        " V: 3.3v          R0                Normal            3298 mV",
+                        " V: 3.0v          R0                Normal            2994 mV",
+                        " V: 2.5v          R0                Normal            2475 mV",
+                        " V: 1.35v CPU     R0                Normal            1347 mV",
+                        " V: 1.8v          R0                Normal            1817 mV",
+                        " V: 1.2v          R0                Normal            1198 mV",
+                        " V: VNN CPU       R0                Normal            964 mV",
+                        " V: 1.1v          R0                Normal            1068 mV",
+                        " V: 1.0v          R0                Normal            999 mV",
+                        " V: 1.8v CPU      R0                Normal            1822 mV",
+                        " V: DDR           R0                Normal            1506 mV",
+                        " V: 3.3v STBY     R0                Normal            3338 mV",
+                        " V: 1.5v          R0                Normal            1506 mV",
+                        " V: 1.0v CPU      R0                Normal            999 mV",
+                        " V: VCC CPU       R0                Normal            867 mV",
+                        " V: 0.75v         R0                Normal            749 mV",
+                        " I: 12v           R0                Normal            2 A",
+                        " P: pwr           R0                Normal            24 Watts"
+                    ]
+                ]
+            },
+            {
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "invocation": {
+                    "module_args": {
+                        "commands": [
+                            "show interfaces status"
+                        ],
+                        "interval": 1,
+                        "match": "all",
+                        "retries": 10,
+                        "wait_for": null
+                    }
+                },
+                "item": {
+                    "cmd": "show interfaces status",
+                    "condition": [
+                        "notconnect"
+                    ]
+                },
+                "stdout": [
+                    ""
+                ],
+                "stdout_lines": [
+                    [
+                        ""
+                    ]
+                ]
+            },
+            {
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "invocation": {
+                    "module_args": {
+                        "commands": [
+                            "show ip ospf neighbor | in EXSTART|2WAY|LOADING|DOWN"
+                        ],
+                        "interval": 1,
+                        "match": "all",
+                        "retries": 10,
+                        "wait_for": null
+                    }
+                },
+                "item": {
+                    "cmd": "show ip ospf neighbor | in EXSTART|2WAY|LOADING|DOWN",
+                    "condition": [
+                        "EXSTART",
+                        "2WAY",
+                        "LOADING",
+                        "DOWN"
+                    ]
+                },
+                "stdout": [
+                    ""
+                ],
+                "stdout_lines": [
+                    [
+                        ""
+                    ]
+                ]
+            }
+        ],
+        "skipped": false
+    }
+}
+ok: [10.10.6.109] => {
+    "msg": {
+        "changed": false,
+        "msg": "All items completed",
+        "results": [
+            {
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "invocation": {
+                    "module_args": {
+                        "commands": [
+                            "show processes cpu | in CPU"
+                        ],
+                        "interval": 1,
+                        "match": "all",
+                        "retries": 10,
+                        "wait_for": null
+                    }
+                },
+                "item": {
+                    "cmd": "show processes cpu | in CPU",
+                    "condition": [
+                        "80"
+                    ]
+                },
+                "stdout": [
+                    "CPU utilization for five seconds: 12%/0%; one minute: 2%; five minutes: 1%"
+                ],
+                "stdout_lines": [
+                    [
+                        "CPU utilization for five seconds: 12%/0%; one minute: 2%; five minutes: 1%"
+                    ]
+                ]
+            },
+            {
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "invocation": {
+                    "module_args": {
+                        "commands": [
+                            "sho processes memory sorted | in Processor| lsmpi_io"
+                        ],
+                        "interval": 1,
+                        "match": "all",
+                        "retries": 10,
+                        "wait_for": null
+                    }
+                },
+                "item": {
+                    "cmd": "sho processes memory sorted | in Processor| lsmpi_io",
+                    "condition": [
+                        "1600000000"
+                    ]
+                },
+                "stdout": [
+                    "Processor Pool Total: 1827002000 Used:  272436808 Free: 1554565192\\n lsmpi_io Pool Total:    6295128 Used:    6294296 Free:        832"
+                ],
+                "stdout_lines": [
+                    [
+                        "Processor Pool Total: 1827002000 Used:  272436808 Free: 1554565192",
+                        " lsmpi_io Pool Total:    6295128 Used:    6294296 Free:        832"
+                    ]
+                ]
+            },
+            {
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "invocation": {
+                    "module_args": {
+                        "commands": [
+                            "show ntp status | in Clock is"
+                        ],
+                        "interval": 1,
+                        "match": "all",
+                        "retries": 10,
+                        "wait_for": null
+                    }
+                },
+                "item": {
+                    "cmd": "show ntp status | in Clock is",
+                    "condition": [
+                        "Clock is unsynchronized"
+                    ]
+                },
+                "stdout": [
+                    "Clock is synchronized, stratum 2, reference is 192.168.207.130"
+                ],
+                "stdout_lines": [
+                    [
+                        "Clock is synchronized, stratum 2, reference is 192.168.207.130"
+                    ]
+                ]
+            },
+            {
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "invocation": {
+                    "module_args": {
+                        "commands": [
+                            "sho environment all"
+                        ],
+                        "interval": 1,
+                        "match": "all",
+                        "retries": 10,
+                        "wait_for": null
+                    }
+                },
+                "item": {
+                    "cmd": "sho environment all",
+                    "condition": [
+                        "Warning",
+                        "Critical",
+                        "Failed"
+                    ]
+                },
+                "stdout": [
+                    "Sensor List:  Environmental Monitoring \\n Sensor           Location          State             Reading\\n RPM: fan0        P2                Normal            5520 RPM\\n RPM: fan1        P2                Normal            5460 RPM\\n RPM: fan2        P2                Normal            5400 RPM\\n RPM: fan3        P2                Normal            5340 RPM\\n P: pwr           P2                Normal            2 Watts\\n Temp: Inlet      R0                Normal            23 Celsius\\n Temp: Internal   R0                Normal            22 Celsius\\n Temp: Outlet     R0                Normal            28 Celsius\\n Temp: CPU        R0                Normal            36 Celsius\\n V: 12v           R0                Normal            12035 mV\\n V: 5v            R0                Normal            5015 mV\\n V: 3.3v          R0                Normal            3306 mV\\n V: 3.0v          R0                Normal            2999 mV\\n V: 2.5v          R0                Normal            2462 mV\\n V: 1.35v CPU     R0                Normal            1341 mV\\n V: 1.8v          R0                Normal            1815 mV\\n V: 1.2v          R0                Normal            1199 mV\\n V: VNN CPU       R0                Normal            960 mV\\n V: 1.1v          R0                Normal            1064 mV\\n V: 1.0v          R0                Normal            998 mV\\n V: 1.8v CPU      R0                Normal            1818 mV\\n V: DDR           R0                Normal            1508 mV\\n V: 3.3v STBY     R0                Normal            3342 mV\\n V: 1.5v          R0                Normal            1501 mV\\n V: 1.0v CPU      R0                Normal            996 mV\\n V: VCC CPU       R0                Normal            860 mV\\n V: 0.75v         R0                Normal            753 mV\\n I: 12v           R0                Normal            3 A\\n P: pwr           R0                Normal            26 Watts"
+                ],
+                "stdout_lines": [
+                    [
+                        "Sensor List:  Environmental Monitoring ",
+                        " Sensor           Location          State             Reading",
+                        " RPM: fan0        P2                Normal            5520 RPM",
+                        " RPM: fan1        P2                Normal            5460 RPM",
+                        " RPM: fan2        P2                Normal            5400 RPM",
+                        " RPM: fan3        P2                Normal            5340 RPM",
+                        " P: pwr           P2                Normal            2 Watts",
+                        " Temp: Inlet      R0                Normal            23 Celsius",
+                        " Temp: Internal   R0                Normal            22 Celsius",
+                        " Temp: Outlet     R0                Normal            28 Celsius",
+                        " Temp: CPU        R0                Normal            36 Celsius",
+                        " V: 12v           R0                Normal            12035 mV",
+                        " V: 5v            R0                Normal            5015 mV",
+                        " V: 3.3v          R0                Normal            3306 mV",
+                        " V: 3.0v          R0                Normal            2999 mV",
+                        " V: 2.5v          R0                Normal            2462 mV",
+                        " V: 1.35v CPU     R0                Normal            1341 mV",
+                        " V: 1.8v          R0                Normal            1815 mV",
+                        " V: 1.2v          R0                Normal            1199 mV",
+                        " V: VNN CPU       R0                Normal            960 mV",
+                        " V: 1.1v          R0                Normal            1064 mV",
+                        " V: 1.0v          R0                Normal            998 mV",
+                        " V: 1.8v CPU      R0                Normal            1818 mV",
+                        " V: DDR           R0                Normal            1508 mV",
+                        " V: 3.3v STBY     R0                Normal            3342 mV",
+                        " V: 1.5v          R0                Normal            1501 mV",
+                        " V: 1.0v CPU      R0                Normal            996 mV",
+                        " V: VCC CPU       R0                Normal            860 mV",
+                        " V: 0.75v         R0                Normal            753 mV",
+                        " I: 12v           R0                Normal            3 A",
+                        " P: pwr           R0                Normal            26 Watts"
+                    ]
+                ]
+            },
+            {
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "invocation": {
+                    "module_args": {
+                        "commands": [
+                            "show interfaces status"
+                        ],
+                        "interval": 1,
+                        "match": "all",
+                        "retries": 10,
+                        "wait_for": null
+                    }
+                },
+                "item": {
+                    "cmd": "show interfaces status",
+                    "condition": [
+                        "notconnect"
+                    ]
+                },
+                "stdout": [
+                    ""
+                ],
+                "stdout_lines": [
+                    [
+                        ""
+                    ]
+                ]
+            },
+            {
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "invocation": {
+                    "module_args": {
+                        "commands": [
+                            "show ip ospf neighbor | in EXSTART|2WAY|LOADING|DOWN"
+                        ],
+                        "interval": 1,
+                        "match": "all",
+                        "retries": 10,
+                        "wait_for": null
+                    }
+                },
+                "item": {
+                    "cmd": "show ip ospf neighbor | in EXSTART|2WAY|LOADING|DOWN",
+                    "condition": [
+                        "EXSTART",
+                        "2WAY",
+                        "LOADING",
+                        "DOWN"
+                    ]
+                },
+                "stdout": [
+                    ""
+                ],
+                "stdout_lines": [
+                    [
+                        ""
+                    ]
+                ]
+            }
+        ],
+        "skipped": false
+    }
+}
+
+TASK [Check failure condition] *************************************************
+ok: [10.48.0.10]
+ok: [10.10.6.108]
+ok: [10.10.6.109]
+
+TASK [Set csv file path] *******************************************************
+ok: [10.48.0.10]
+ok: [10.10.6.108]
+ok: [10.10.6.109]
+
+TASK [Build csv file header] ***************************************************
+ok: [10.10.6.108]
+ok: [10.48.0.10]
+ok: [10.10.6.109]
+
+TASK [Build csv content line] **************************************************
+ok: [10.48.0.10]
+ok: [10.10.6.108]
+ok: [10.10.6.109]
+
+TASK [Create CSV file] *********************************************************
+ok: [10.10.6.109]
+ok: [10.48.0.10]
+ok: [10.10.6.108]
+
+TASK [CSV - Blank lines removal] ***********************************************
+ok: [10.10.6.108]
+ok: [10.10.6.109]
+ok: [10.48.0.10]
+
+TASK [CSV - Write information into .csv file] **********************************
+ok: [10.48.0.10]
+ok: [10.10.6.109]
+ok: [10.10.6.108]
+
+PLAY RECAP *********************************************************************
+10.10.6.108                : ok=11   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+10.10.6.109                : ok=11   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+10.48.0.10                 : ok=11   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
