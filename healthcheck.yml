@@ -55,18 +55,18 @@
       line: " {{ csv_header }}"
       create: yes
       state: present
-    deligate_to: controller  
+    deligate_to: ansible-1  
 
   - name: CSV - Blank lines removal
     lineinfile:
       path: " {{ csv_path }}"
       state: absent
       regex: '^\s*$'
-    deligate_to: controller  
+    deligate_to: ansible-1  
 
 ###########Write to CSV#####################
   - name: CSV - Write information into .csv file
     lineinfile:
       dest: "{{ csv_path }}"
       line: "\"{{ansible_ssh_host}}\",\"{{ csv_line }}\""
-    deligate_to: controller
+    deligate_to: ansible-1
