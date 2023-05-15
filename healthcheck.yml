@@ -1,6 +1,6 @@
 ---
 - name: Health check 
-  hosts: switches, routers, controller
+  hosts: switches, routers, ansible-1
   gather_facts: no
 
   vars_files:
