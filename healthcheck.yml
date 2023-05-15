@@ -1,6 +1,6 @@
 ---
 - name: Health check 
-  hosts: switches_catalyst, routers_ISR
+  hosts: switches, routers, controller
   gather_facts: no
 
   vars_files:
@@ -18,19 +18,19 @@
   - name: Check and return check_result 
     # [0 => router, 1 => switch, 2 => nexus ]
     vars:
-      hc_commands: "{%- if ('switches_catalyst' in group_names) -%}
+      hc_commands: "{%- if ('switches' in group_names) -%}
                         {{ healthcheck_commands[1].switch }}          
-                    {%- elif ('routers_ISR' in group_names) -%}
+                    {%- elif ('routers' in group_names) -%}
                         {{ healthcheck_commands[0].router }}
                     {%- endif -%}"
-    include_tasks: "sub-tasks/router.yml"
+    include_tasks: "sub-tasks/devices.yml"
 
   - name: Set csv file path 
     set_fact:
-      csv_path: "{%- if ('switches_catalyst' in group_names) -%}
-                        ~/ansible-network/switches_checklist_{{ date }}.csv
-                 {%- elif ('routers_ISR' in group_names) -%}
-                        ~/ansible-network/routers_checklist_{{ date }}.csv
+      csv_path: "{%- if ('switches' in group_names) -%}
+                        ~/switches_checklist_{{ date }}.csv
+                 {%- elif ('routers' in group_names) -%}
+                        ~/routers_checklist_{{ date }}.csv
                  {%- endif -%}"
 
   - name: Build csv file header
@@ -55,15 +55,18 @@
       line: " {{ csv_header }}"
       create: yes
       state: present
+    deligate_to: controller  
 
   - name: CSV - Blank lines removal
     lineinfile:
       path: " {{ csv_path }}"
       state: absent
       regex: '^\s*$'
+    deligate_to: controller  
 
 ###########Write to CSV#####################
   - name: CSV - Write information into .csv file
     lineinfile:
       dest: "{{ csv_path }}"
       line: "\"{{ansible_ssh_host}}\",\"{{ csv_line }}\""
+    deligate_to: controller
