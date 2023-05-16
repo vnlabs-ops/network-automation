@@ -11,25 +11,27 @@
      current_memory_usage: "{{ cmd_outputs.results[1].stdout_lines[0] | regex_findall('\\d+') }}"
    set_fact:
      check_result: >-
-                   {%- set check_result = [] -%}
-                   {%- if hc_commands[0].condition[0]|int <= current_cpu_usage|int -%}
-                       {%- do check_result.append("FAIL") -%}
-                   {%- else -%}
-                       {%- do check_result.append("OK") -%}
-                   {%- endif -%}                  
-                   {%- if hc_commands[1].condition[0]|int <= current_memory_usage[1]|int -%}
-                       {%- do check_result.append("FAIL") -%}
-                   {%- else -%}
-                       {%- do check_result.append("OK") -%}
-                   {%- endif -%}                  
-                   {%- set j = hc_commands|length -%}
-                   {%- for i in range(2, j) -%}
-                     {%- set check_condition = namespace(value="OK") -%} 
-                     {%- for con in hc_commands[i].condition -%} 
-                           {%- if con in cmd_outputs.results[i].stdout[0]-%}
-                               {%- set check_condition.value = "FAIL" -%}                                                       
-                           {%- endif -%}
-                     {%- endfor -%}
-                     {%- do check_result.append(check_condition.value) -%}
-                   {%- endfor -%}
-                   {{ check_result }}
+                  {%- set check_result = [] -%}
+                  {%- set check_cpu = "OK" -%}
+                  {%- if hc_commands[0].condition[0]|int <= current_cpu_usage|int -%}                      
+                      {%- set check_cpu = "FAIL! %d" % (current_cpu_usage) -%}
+                  {%- endif -%}
+                  {%- do check_result.append(check_cpu) -%}                  
+                  {%- set check_memory = "OK" -%}
+                  {%- if hc_commands[1].condition[0]|int <= current_memory_usage[1]|int -%}
+                      {%- set check_memory = "FAIL! %d" % (current_memory_usage[1]) -%}                      
+                  {%- endif -%}
+                  {%- do check_result.append(check_memory) -%}                  
+                  {%- set j = hc_commands|length -%}
+                  {%- for i in range(2, j) -%}
+                    {%- set check_condition = namespace(value="OK") -%} 
+                    {%- for con in hc_commands[i].condition -%} 
+                          {%- if con not in cmd_outputs.results[i].stdout[0]-%}                              
+                              {%- set check_condition.value = "OK! " ~ hc_commands[i].cmd -%}
+                          {%- else -%}
+                               {%- set check_condition = namespace(value="FAIL! " ~ cmd_outputs.results[i].stdout[0]) -%}                                                     
+                          {%- endif -%}
+                    {%- endfor -%}
+                    {%- do check_result.append(check_condition.value) -%}
+                  {%- endfor -%}
+                  {{ check_result }}
