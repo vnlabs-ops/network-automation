@@ -71,6 +71,6 @@
   - name: Copy file to controller node
     ansible.builtin.fetch:
       src: "{{ csv_path }}"
-      dest: "{{ csv_path }}"
+      dest: "{{ inventory_hostname}}_{{ csv_path }}"
       flat: true
     deligate_to: ansible-1  
