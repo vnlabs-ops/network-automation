@@ -1,6 +1,6 @@
 ---
 - name: Health check 
-  hosts: switches, routers, ansible-1
+  hosts: switches, routers
   gather_facts: no
 
   vars_files:
@@ -73,3 +73,4 @@
       src: "{{ csv_path }}"
       dest: "{{ csv_path }}"
       flat: true
+    deligate_to: ansible-1  
