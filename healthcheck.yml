@@ -68,8 +68,8 @@
       dest: "{{ csv_path }}"
       line: "\"{{ansible_ssh_host}}\",\"{{ csv_line }}\""
       
-  - name: Copy file to controller node
-    ansible.builtin.fetch:
-      src: "{{ csv_path }}"
-      dest: "/home/ec2-user/{{ csv_path }}"
-      flat: true    
+  # - name: Copy file to controller node
+  #  ansible.builtin.fetch:
+  #    src: "{{ csv_path }}"
+  #    dest: "/home/ec2-user/{{ csv_path }}"
+  #    flat: true    
