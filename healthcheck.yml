@@ -71,6 +71,5 @@
   - name: Copy file to controller node
     ansible.builtin.fetch:
       src: "{{ csv_path }}"
-      dest: "{{ inventory_hostname}}_{{ csv_path }}"
-      flat: true
-    deligate_to: ansible-1  
+      dest: "/home/ec2-user/{{ csv_path }}"
+      flat: true    
