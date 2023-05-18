@@ -38,7 +38,7 @@
       csv_header: "{%- if ('switches_catalyst' in group_names) -%}
                         \"Device IP\",\"CPU\",\"Memmory\",\"NTP\",\"Environment\",\"Interface status\"
                  {%- elif ('routers_ISR' in group_names) -%}
-                        \"Device IP\",\"CPU\",\"Memmory\",\"NTP\",\"Environment\",\"Interface status\",\"WAN ospf \"
+                        \"Device IP\",\"CPU\",\"Memmory\",\"NTP\",\"WAN ospf \"
                  {%- endif -%}"
 
   - name: Build csv content line 
