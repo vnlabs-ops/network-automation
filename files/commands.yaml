@@ -11,10 +11,10 @@ healthcheck_commands:
     condition: [ "1600000000" ]
   - cmd: 'show ntp status | in Clock is'
     condition: ["Clock is unsynchronized"]
-  - cmd: 'sho environment all'
-    condition: ["Warning","Critical","Failed"]
-  - cmd: 'show interfaces status'
-    condition: ["notconnect"]
+  #- cmd: 'sho environment all'
+  #  condition: ["Warning","Critical","Failed"]
+  #- cmd: 'show interfaces status'
+  #  condition: ["notconnect"]
   - cmd: "show ip ospf neighbor | in EXSTART|2WAY|LOADING|DOWN"
     condition: ["EXSTART","2WAY","LOADING","DOWN"]
 - switch:
